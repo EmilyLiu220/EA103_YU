@@ -175,47 +175,6 @@
 				<ul>
 					<%-- listAll_is.jsp --%>
 					<li><a href='<%=request.getContextPath()%>/back-end/inform_set/listAll_is.jsp' style="color: #dea554; font-weight: 600;" onMouseOver="this.style.color='#ffbc5e';" onMouseOut="this.style.color='#dea554';">顯示所有活動通知</a><br><br></li>
-					
-					<%-- listOne_is.jsp --%>
-					<%-- <li>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/inform_set/is.do" >
-							<b>輸入活動通知編號 (如IS0001)：</b>
-							<input type="text" name="is_no">
-							<input type="hidden" name="action" value="getOneIsForDisplay">
-							<input type="submit" value="送出">
-						</FORM>
-					<br></li> --%>
-					
-					<%-- listByEmp_is.jsp --%>
-					<%-- <li>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/inform_set/is.do" >
-							<b>輸入員工編號 (例如EMP0001)：</b>
-							<input type="text" name="emp_no">
-							<input type="hidden" name="action" value="getIsForDisplayByEmp">
-							<input type="submit" value="送出">
-						</FORM>
-					<br></li> --%>
-					
-					<%-- listByCont_is.jsp --%>
-					<%-- <li>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/inform_set/is.do" >
-							<b>輸入關鍵字(例如快來吃Pot吧)：</b>
-							<input type="text" name="is_cont">
-							<input type="hidden" name="action" value="getIsForDisplayByCont">
-							<input type="submit" value="送出">
-						</FORM>
-					<br></li> --%>
-					
-					<%-- listByDate_is.jsp --%>
-					<%-- <li>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/inform_set/is.do">
-							<b>選擇發送日期：</b>
-							<b>起 </b><input type="text" id="is_date_startDate" name="is_date_startDate" class="hasDatepicker2">
-							<b>訖 </b><input type="text" id="is_date_stopDate" name="is_date_stopDate" class="hasDatepicker2">
-							<input type="hidden" name="action" value="getIsForDisplayByDate">
-							<input type="submit" value="送出">
-						</FORM>
-					<br></li> --%>
 				</ul>
 				
 				<%-- 查詢通知 --%>
