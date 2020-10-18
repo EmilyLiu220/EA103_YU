@@ -131,7 +131,7 @@ padding-right: 17px;
 	
 	<%-- 以下為該頁面其他內容 --%>
 	<section>
-	<div class="msg">
+	<div class="msg" onclick="popMsg()">
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -365,6 +365,7 @@ padding-right: 17px;
 	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
 	<script>
 	var nb = $('nav.navbar-fixed-top');
+	var msg = $('.msg');
 	$('.modal')
 	    .on('show.bs.modal', function () {
 	        nb.width(nb.width());

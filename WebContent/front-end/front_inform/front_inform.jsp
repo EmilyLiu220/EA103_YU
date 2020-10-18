@@ -70,6 +70,11 @@ th, td {
 .modal-open .msg {
 padding-right: 17px;
 }
+
+#fi_cont{
+ color: #000;
+}
+
 </style>
 </head>
 
@@ -130,16 +135,13 @@ padding-right: 17px;
 	
 	
 	<%-- 以下為該頁面其他內容 --%>
-	<section>
 	<div class="msg">
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
+		<button type="button" class="btn" style="box-shadow: 0 0 0; padding:0px" onclick="message()">
+			<img src="<%=request.getContextPath()%>/front-end/images/help.png" alt="">
 		</button>
-		<img src="<%=request.getContextPath()%>/front-end/images/help.png" alt="">
+		<div>
+		</div>
 	</div>
-	</section>
 	<div class="py-1 bg-black top">
 		<div class="container">
 			<div
@@ -170,6 +172,7 @@ padding-right: 17px;
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light navbar-fixed-top"
@@ -364,8 +367,8 @@ padding-right: 17px;
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
 	<script>
-	var nb = $('nav.navbar-fixed-top');
-	$('.modal')
+		var nb = $('nav.navbar-fixed-top');
+		$('.modal')
 	    .on('show.bs.modal', function () {
 	        nb.width(nb.width());
 	    })
@@ -410,7 +413,7 @@ padding-right: 17px;
 				 success:function(res){
 					if(fi_cont.style.display == "none"){
 						fi_cont.style.display = "block";
-						fi_cont.style.position = "absolute";
+						fi_cont.style.position = "fixed";
 						fi_cont.style.zIndex = '550';
 						fi_cont.style.top = '40px';
 					    fi_cont.style.right = '20%';
@@ -467,7 +470,9 @@ padding-right: 17px;
 			});			
 			document.getElementById(info_no+"yes").disabled="disabled";
 		}
-		
+		function message(){
+			console.log("QQ")
+		}
 	</script>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
