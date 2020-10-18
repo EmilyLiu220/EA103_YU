@@ -64,6 +64,11 @@ th, td {
   padding: 3px 3px;
   vertical-align: text-bottom;
   background-color: #FF0000;
+  display: none;
+}
+.modal-open .top,
+.modal-open .msg {
+padding-right: 17px;
 }
 </style>
 </head>
@@ -125,10 +130,17 @@ th, td {
 	
 	
 	<%-- 以下為該頁面其他內容 --%>
+	<section>
 	<div class="msg">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+		</button>
 		<img src="<%=request.getContextPath()%>/front-end/images/help.png" alt="">
 	</div>
-	<div class="py-1 bg-black top ">
+	</section>
+	<div class="py-1 bg-black top">
 		<div class="container">
 			<div
 				class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -160,7 +172,7 @@ th, td {
 		</div>
 	</div>
 	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light navbar-fixed-top"
 		id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="index.html">吃 Pot 吧</a>
@@ -318,6 +330,7 @@ th, td {
 			</div>
 		</div>
 	</footer>
+	
 	<!-- loader -->
 	<div id="ftco-loader" class="show fullscreen">
 		<svg class="circular" width="48px" height="48px">
@@ -326,8 +339,39 @@ th, td {
             <circle class="path" cx="24" cy="24" r="22" fill="none"
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">您尚未登入</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        請先登入或註冊會員
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+	        <button type="button" class="btn btn-primary" onclick="location.href='contact.html'">我要登入</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
 	<script>
+	var nb = $('nav.navbar-fixed-top');
+	$('.modal')
+	    .on('show.bs.modal', function () {
+	        nb.width(nb.width());
+	    })
+	    .on('hidden.bs.modal', function () {
+	        nb.width(nb.width('auto'));
+	    });
 		var mem_no="<%=request.getParameter("mem_no")%>"
 		
 		if(document.getElementsByName("unread").length > 0){
@@ -335,23 +379,9 @@ th, td {
 		}else{
 			document.getElementsByClassName("badge")[0].style.display = 'none';
 		}
-	
+		
 		function popFrontInform(){
 			let fi_cont = document.getElementById("fi_cont");
-			if(fi_cont.style.display == "none"){
-				fi_cont.style.display = "block";
-				fi_cont.style.position = "absolute";
-				fi_cont.style.zIndex = '550';
-				fi_cont.style.top = '40px';
-			    fi_cont.style.right = '20%';
-			    fi_cont.style.fontSize = '10px';
-			    fi_cont.style.width = '400px';
-			    fi_cont.style.height = '300px';
-			    fi_cont.style.borderRadius = '10px';
-			    fi_cont.style.overflow = 'auto';
-			}else{
-				fi_cont.style.display = "none";
-			}
 			
 			// 已讀未讀顯示顏色
 			
@@ -378,9 +408,28 @@ th, td {
 					 mem_no: mem_no,
 				 },
 				 success:function(res){
+					if(fi_cont.style.display == "none"){
+						fi_cont.style.display = "block";
+						fi_cont.style.position = "absolute";
+						fi_cont.style.zIndex = '550';
+						fi_cont.style.top = '40px';
+					    fi_cont.style.right = '20%';
+					    fi_cont.style.fontSize = '10px';
+					    fi_cont.style.width = '400px';
+					    fi_cont.style.height = '300px';
+					    fi_cont.style.borderRadius = '10px';
+					    fi_cont.style.overflow = 'auto';
+					}else{
+						fi_cont.style.display = "none";
+					}
 				 },
-				 error:function(err){console.log(err)},	
+				 error:function(err){
+					console.log(err);
+					fi_cont.style.display = "none";
+					$('#loginModal').modal('show');
+				 },	
 			});
+			
 		}		
 		function confirm(info_no, res_no){
 			$.ajax({
@@ -422,7 +471,6 @@ th, td {
 	</script>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
-	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.easing.1.3.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.waypoints.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.stellar.min.js"></script>
@@ -434,5 +482,6 @@ th, td {
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.timepicker.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/scrollax.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
+	
 </body>
 </html>
