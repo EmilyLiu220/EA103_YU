@@ -137,8 +137,8 @@ public class Inform_SetServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("isVOs", isVOs); // 資料庫取出的 isVOs ,存入req
-				String url = "/back-end/inform_set/listByEmp_is.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByEmp_is.jsp
+				String url = "/back-end/inform_set/listByComplex_is.jsp";//"/back-end/inform_set/listByEmp_is.jsp"
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByComplex_is.jsp
 				successView.forward(req, res);
 				
 			} catch(Exception e) {
@@ -226,8 +226,8 @@ public class Inform_SetServlet extends HttpServlet {
 				}
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("isVOs", isVOs); // 資料庫取出的 isVOs ,存入req
-				String url = "/back-end/inform_set/listByCont_is.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByCont_is.jsp
+				String url = "/back-end/inform_set/listByComplex_is.jsp";//"/back-end/inform_set/listByCont_is.jsp"
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByComplex_is.jsp
 				successView.forward(req, res);
 				
 			} catch(Exception e) {
@@ -285,8 +285,8 @@ public class Inform_SetServlet extends HttpServlet {
 				}
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("isVOs", isVOs); // 資料庫取出的 isVOs ,存入req
-				String url = "/back-end/inform_set/listByDate_is.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByDate_is.jsp
+				String url = "/back-end/inform_set/listByComplex_is.jsp";//"/back-end/inform_set/listByDate_is.jsp"
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByComplex_is.jsp
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
@@ -433,7 +433,7 @@ public class Inform_SetServlet extends HttpServlet {
 			}
 		}
 		
-	if("getOneIsForUpdate".equals(action)) { 
+		if("getOneIsForUpdate".equals(action)) { 
 			// 來自 listAll_is.jsp、listByCont_is.jsp、listByComplex_is.jsp、listByDate_is.jsp、listByEmp_is.jsp、listOne_is.jsp 的請求
 			// Q：如何在發生錯誤時及成功轉交時，跳回來源頁面? 使用 form 表單提交的頁面，有辦法跳回去嗎?
 			
@@ -471,7 +471,7 @@ public class Inform_SetServlet extends HttpServlet {
 			}
 		}
 		
-	if("updateIs".equals(action)) { // 來自update_is.jsp的請求
+		if("updateIs".equals(action)) { // 來自update_is.jsp的請求
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -544,7 +544,7 @@ public class Inform_SetServlet extends HttpServlet {
 			}
 		}
 		
-	if("insertIs".equals(action)) { // 來自add_is.jsp的請求  
+		if("insertIs".equals(action)) { // 來自add_is.jsp的請求  
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -608,7 +608,7 @@ public class Inform_SetServlet extends HttpServlet {
 			
 		}
 		
-	if("deleteIs".equals(action)) { 
+		if("deleteIs".equals(action)) { 
 			// 來自 listAll_is.jsp、listByCont_is.jsp、listByComplex_is.jsp、listByEmp_is.jsp、listByDate_is.jsp、listOne_is.jsp 的請求
 			// Q：如何在發生錯誤時及成功轉交時，跳回來源頁面? 使用 form 表單提交的頁面，有辦法跳回去嗎?
 			

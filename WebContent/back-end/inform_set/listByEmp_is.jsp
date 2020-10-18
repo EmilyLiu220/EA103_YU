@@ -17,12 +17,6 @@
 	List<Inform_SetVO> list = (List<Inform_SetVO>) request.getAttribute("isVOs");
 	pageContext.setAttribute("list", list);
 %>
-<%--	
-	String emp_no = request.getParameter("emp_no");
-	Inform_SetService front_informSvc = new Inform_SetService();
-	List<Inform_SetVO> list = front_informSvc.getIsByEmp(emp_no);
-	pageContext.setAttribute("list", list);
---%>
 <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService"></jsp:useBean>
 
 <!-- Bootstrap CSS CDN -->

@@ -209,7 +209,7 @@
 					</table>
 					<br>
 					<input type="hidden" name="action" value="insertIs"/>
-					<input type="submit" value="送出新增"/>
+					<input type="submit" value="送出新增" style="cursor: pointer; margin-left: 70%; background: #c8a97e; color: #fff; border: 0; border-radius: 5px; width: 100px; height: 40px; font-weight: 600;" onMouseOver="this.style.background='#ffbc5e'" onMouseOut="this.style.background='#c8a97e'"/>
 				</FORM>
 			</p>	
 		</div>

@@ -206,8 +206,8 @@
 						</FORM>
 					<br></li> --%>
 					
-					<%-- listByDate_is.jsp
-					<li>
+					<%-- listByDate_is.jsp --%>
+					<%-- <li>
 						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/inform_set/is.do">
 							<b>選擇發送日期：</b>
 							<b>起 </b><input type="text" id="is_date_startDate" name="is_date_startDate" class="hasDatepicker2">

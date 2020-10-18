@@ -221,7 +221,8 @@
 					<br>
 					<input type="hidden" name="action" value="updateIs"/>
 					<input type="hidden" name="is_no" value="<%=isVO.getIs_no()%>"/>
-					<input type="submit" value="送出修改"/>
+					<button style="curosr: pointer; margin-left: 70%; margin-right: 20px; background: #c8a97e; color: #fff; border: 0; border-radius: 5px; width: 100px; height: 40px; font-weight: 600;" onMouseOver="this.style.background='#ffbc5e'" onMouseOut="this.style.background='#c8a97e'"><a href="<%=request.getContextPath()%>/back-end/inform_set/listAll_is.jsp">取消修改</a></button>
+					<input type="submit" value="送出修改" style="cursor: pointer; margin-right: 10px; background: #c8a97e; color: #fff; border: 0; border-radius: 5px; width: 100px; height: 40px; font-weight: 600;" onMouseOver="this.style.background='#ffbc5e'" onMouseOut="this.style.background='#c8a97e'"/>
 				</FORM>
 			</p>	
 		</div>
