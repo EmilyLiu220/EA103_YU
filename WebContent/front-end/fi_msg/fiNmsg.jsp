@@ -37,8 +37,8 @@
 .msg {
 	position: fixed;
 	z-index: 500;
-	bottom: 50px;
-	right: 70px;
+	bottom: 5%;
+	right: 5%;
 }
 
 .blank {
@@ -141,7 +141,7 @@ padding-right: 17px;
 	<%-- 以下為 navbar 內容 --%>
 	<div class="msg">
 		<button type="button" class="btn" style="box-shadow: 0 0 0; padding:0px" onclick="popMsg()">
-			<img src="<%=request.getContextPath()%>/front-end/images/help.png" alt="">
+			<img id="custSvc" src="<%=request.getContextPath()%>/front-end/images/msg.png">
 		</button>
 		<div>
 		</div>
