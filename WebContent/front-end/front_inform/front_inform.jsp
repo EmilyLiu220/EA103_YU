@@ -92,6 +92,9 @@ padding-right: 17px;
 		</ul>
 	</c:if>
 	
+	
+	
+	<%-- 小鈴鐺 table 開始 --%>
 	<table id="fi_cont" style="border:0;display:none;">
 		<c:forEach var="front_informVO" items="${front_informVOs}">
 			<tr name="${(front_informVO.read_sts == 0) ? 'unread':'read'}" >
@@ -131,12 +134,13 @@ padding-right: 17px;
 			</tr>
 		</c:forEach>
 	</table>
+	<%-- 小鈴鐺 table 結束 --%>
 	
 	
 	
-	<%-- 以下為該頁面其他內容 --%>
+	<%-- 以下為 navbar 內容 --%>
 	<div class="msg">
-		<button type="button" class="btn" style="box-shadow: 0 0 0; padding:0px" onclick="message()">
+		<button type="button" class="btn" style="box-shadow: 0 0 0; padding:0px" onclick="popMsg()">
 			<img src="<%=request.getContextPath()%>/front-end/images/help.png" alt="">
 		</button>
 		<div>
@@ -172,7 +176,6 @@ padding-right: 17px;
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light navbar-fixed-top"
@@ -199,10 +202,14 @@ padding-right: 17px;
 			</div>
 		</div>
 	</nav>
-	<!-- END nav -->
+	<%-- navbar 內容結束 --%>
+
+
+
+	<%-- 以下為輪播的地方 --%>
 	<section class="home-slider owl-carousel js-fullheight">
 		<div class="slider-item js-fullheight"
-			style="background-image: url(<%=request.getContextPath()%>/front-end/images/bg_1.jpg);">
+			style="background-image: url(<%=request.getContextPath()%>/front-end/images/carousel_1.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div
@@ -216,7 +223,7 @@ padding-right: 17px;
 			</div>
 		</div>
 		<div class="slider-item js-fullheight"
-			style="background-image: url(<%=request.getContextPath()%>/front-end/images/bg_2.jpg);">
+			style="background-image: url(<%=request.getContextPath()%>/front-end/images/carousel_2.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div
@@ -230,7 +237,7 @@ padding-right: 17px;
 			</div>
 		</div>
 		<div class="slider-item js-fullheight"
-			style="background-image: url(<%=request.getContextPath()%>/front-end/images/bg_3.jpg);">
+			style="background-image: url(<%=request.getContextPath()%>/front-end/images/carousel_3.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div
@@ -244,9 +251,19 @@ padding-right: 17px;
 			</div>
 		</div>
 	</section>
+	<%-- 輪播的地方結束 --%>
+	
+	
+	
+	<%-- 內容放置區域開始 --%>
 	<section>
 		<div class="blank"></div>
 	</section>
+	<%-- 內容放置區域結束 --%>
+	
+	
+	
+	<%-- footer 開始 --%>
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
 		<div class="container">
 			<div class="row mb-5">
@@ -326,15 +343,18 @@ padding-right: 17px;
 						</script>
 						All rights reserved | This template is made with <i
 							class="icon-heart" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
+							href="https://colorlib.com" target="_blank">EA103G7</a>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</p>
 				</div>
 			</div>
 		</div>
 	</footer>
+	<%-- footer 結束 --%>
 	
-	<!-- loader -->
+	
+	
+	<%-- loader ( 網頁尚在 loading 中時會出現的一個小圈圈 ) 開始 --%>
 	<div id="ftco-loader" class="show fullscreen">
 		<svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none"
@@ -342,8 +362,11 @@ padding-right: 17px;
             <circle class="path" cx="24" cy="24" r="22" fill="none"
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
+	<%-- loader 結束 --%>
 	
-	<!-- Modal -->
+	
+	
+	<%-- Modal (擋住未登入的會員點選已登入會員才可看到的畫面) 開始 --%>
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -363,10 +386,15 @@ padding-right: 17px;
 	    </div>
 	  </div>
 	</div>
+	<%-- Modal (擋住未登入的會員點選已登入會員才可看到的畫面) 結束 --%>
 	
+	
+	
+	<%-- script 開始 --%>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
 	<script>
+		<%-- 可在 modal 處自由加入想要擋住的內容 --%>
 		var nb = $('nav.navbar-fixed-top');
 		$('.modal')
 	    .on('show.bs.modal', function () {
@@ -375,14 +403,16 @@ padding-right: 17px;
 	    .on('hidden.bs.modal', function () {
 	        nb.width(nb.width('auto'));
 	    });
-		var mem_no="<%=request.getParameter("mem_no")%>"
 		
+		
+		
+		<%-- 小鈴鐺點擊後會產生的動作 --%>
+		var mem_no="<%=request.getParameter("mem_no")%>"
 		if(document.getElementsByName("unread").length > 0){
 			document.getElementsByClassName("badge")[0].style.display = "inline-block";
 		}else{
 			document.getElementsByClassName("badge")[0].style.display = 'none';
 		}
-		
 		function popFrontInform(){
 			let fi_cont = document.getElementById("fi_cont");
 			
@@ -470,7 +500,10 @@ padding-right: 17px;
 			});			
 			document.getElementById(info_no+"yes").disabled="disabled";
 		}
-		function message(){
+		
+		
+		<%-- 客服對話框點擊後會產生的動作...尚未完成...QQ... --%>
+		function popMsg(){
 			console.log("QQ")
 		}
 	</script>
@@ -487,6 +520,6 @@ padding-right: 17px;
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.timepicker.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/scrollax.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-	
+	<%-- script 結束 --%>
 </body>
 </html>
