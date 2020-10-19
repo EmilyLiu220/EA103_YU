@@ -76,12 +76,20 @@ public class Message_RecordServlet extends HttpServlet {
 
 		}
 		
-		if ("insertMsg".equals(action)) {
+		if ("insertMsg".equals(action)) { // Q:客服是否需要登入才能傳送訊息? -> 個人覺得不用...
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				
+				String mem_no = req.getParameter("mem_no").trim();
+				// 顧客未登入頁面傳來的訊息
+				if(mem_no == null || (mem_no.trim()).length() == 0) {
+					String msg_cont = req.getParameter("msg_cont");
+				}
+				// 會員登入後傳的訊息
+				if(mem_no != null && (mem_no.trim()).length() != 0) {
+					
+				}
 			} catch (Exception e) {
 				
 			}
