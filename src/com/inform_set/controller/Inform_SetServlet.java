@@ -137,6 +137,8 @@ public class Inform_SetServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("isVOs", isVOs); // 資料庫取出的 isVOs ,存入req
+//				HttpSession session = req.getSession();
+//				session.setAttribute("isVOs", isVOs);
 				String url = "/back-end/inform_set/listByComplex_is.jsp";//"/back-end/inform_set/listByEmp_is.jsp"
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByComplex_is.jsp
 				successView.forward(req, res);
@@ -226,6 +228,8 @@ public class Inform_SetServlet extends HttpServlet {
 				}
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("isVOs", isVOs); // 資料庫取出的 isVOs ,存入req
+//				HttpSession session = req.getSession();
+//				session.setAttribute("isVOs", isVOs);
 				String url = "/back-end/inform_set/listByComplex_is.jsp";//"/back-end/inform_set/listByCont_is.jsp"
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByComplex_is.jsp
 				successView.forward(req, res);
@@ -285,6 +289,8 @@ public class Inform_SetServlet extends HttpServlet {
 				}
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("isVOs", isVOs); // 資料庫取出的 isVOs ,存入req
+//				HttpSession session = req.getSession();
+//				session.setAttribute("isVOs", isVOs);
 				String url = "/back-end/inform_set/listByComplex_is.jsp";//"/back-end/inform_set/listByDate_is.jsp"
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByComplex_is.jsp
 				successView.forward(req, res);
@@ -420,6 +426,8 @@ public class Inform_SetServlet extends HttpServlet {
 				}
 				/******************************** 3.查詢完成,準備轉交(Send the Success view) *****************/
 				req.setAttribute("isVOs", isVOs); // 資料庫取出的 isVOs ,存入req
+//				HttpSession session = req.getSession();
+//				session.setAttribute("isVOs", isVOs);
 				String url = "/back-end/inform_set/listByComplex_is.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listByComplex_is.jsp
 				successView.forward(req, res);
@@ -452,7 +460,8 @@ public class Inform_SetServlet extends HttpServlet {
 					errorMsgs.add("通知編號 " + is_no + " 時效已過期，無法予以修改");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/inform_set/select_is.jsp");
+					req.setAttribute("isVO", isVO);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/inform_set/listOne_is.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -532,6 +541,8 @@ public class Inform_SetServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("isVO", isVO); // 資料庫update成功後,正確的的isVO物件,存入req
+//				HttpSession session = req.getSession();
+//				session.setAttribute("isVO", isVO);
 				String url = "/back-end/inform_set/listOne_is.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOne_is.jsp
 				successView.forward(req, res);
@@ -595,7 +606,6 @@ public class Inform_SetServlet extends HttpServlet {
 				isVO = isSvc.addIs(emp_no, is_cont, is_date);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("isVO", isVO);
 				String url = "/back-end/inform_set/listAll_is.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAll_is.jsp
 				successView.forward(req, res);	
@@ -627,7 +637,8 @@ public class Inform_SetServlet extends HttpServlet {
 					errorMsgs.add("通知編號 " + is_no + " 時效已過期，無法予以刪除");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/inform_set/select_is.jsp");
+					req.setAttribute("isVO", isVO);
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/inform_set/listOne_is.jsp");
 					failureView.forward(req, res);
 					return;
 				}

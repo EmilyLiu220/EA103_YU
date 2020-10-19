@@ -92,10 +92,6 @@ public class Front_informServlet extends HttpServlet {
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-//			登入頁面要做的
-//			HttpSession session = req.getSession();
-//			session.setAttribute("mem_no", "XXX");
-//			System.out.println(session.getAttribute("mem_no"));
 			try {
 				String mem_no = req.getParameter("mem_no");
 				if(mem_no==null||(mem_no.trim().length()==0)) {
@@ -160,6 +156,8 @@ public class Front_informServlet extends HttpServlet {
 				List<Front_InformVO> front_informVOs = front_informSvc.getMyInform(mem_no);
 
 				req.setAttribute("front_informVOs", front_informVOs);
+				HttpSession session = req.getSession();
+				session.setAttribute("front_informVOs", front_informVOs);
 				String url = "/front-end/front_inform/front_inform.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);		
@@ -229,6 +227,8 @@ public class Front_informServlet extends HttpServlet {
 				List<Front_InformVO> front_informVOs = front_informSvc.getMyInform(mem_no);
 
 				req.setAttribute("front_informVOs", front_informVOs);
+				HttpSession session = req.getSession();
+				session.setAttribute("front_informVOs", front_informVOs);
 				String url = "/back-end/front_inform/empCheckInform.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);		
@@ -238,8 +238,6 @@ public class Front_informServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/front_inform/errorPage.jsp");
 				failureView.forward(req, res);
 			}
-			
 		}
-		
 	}
 }
