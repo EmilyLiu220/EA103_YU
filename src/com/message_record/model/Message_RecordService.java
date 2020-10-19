@@ -30,6 +30,10 @@ public class Message_RecordService {
 		return dao.findByMemNo(mem_no);
 	}
 	
+	public List<Message_RecordVO> getMsgByEmp(String emp_no) {
+		return dao.findByEmpNo(emp_no);
+	}
+	
 	public void updateMsgByMem(String mem_no) {
 		dao.updateMemReadSts(mem_no);
 	}

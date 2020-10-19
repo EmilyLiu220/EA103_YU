@@ -17,6 +17,7 @@ public class Message_RecordJDBCDAO implements Message_RecordDAO_interface{
 	
 	private static final String INSERT_MSG = "INSERT INTO MESSAGE_RECORD (MSG_NO,EMP_NO,MEM_NO,MSG_CONT,MSG_STS) VALUES ('MSG'||LPAD(to_char(SEQ_MSG_NO.nextval), 4, '0'), ?, ?, ?, ?)"; 
 	private static final String GET_BY_MEMNO = "SELECT EMP_NO, MSG_CONT, MSG_TIME, MSG_STS FROM MESSAGE_RECORD WHERE MEM_NO=? ORDER BY MSG_NO";
+	private static final String GET_BY_EMPNO = "SELECT MEM_NO, MSG_CONT, MSG_TIME, MSG_STS FROM MESSAGE_RECORD WHERE EMP_NO=? ORDER BY MSG_NO";
 	private static final String UPDATE_MEM_READ_STS = "UPDATE MESSAGE_RECORD SET READ_STS=1 WHERE MSG_STS='0' AND MEM_NO=?";
 	private static final String UPDATE_EMP_READ_STS = "UPDATE MESSAGE_RECORD SET READ_STS=1 WHERE MSG_STS='1' AND EMP_NO=?";
 	
@@ -71,6 +72,57 @@ public class Message_RecordJDBCDAO implements Message_RecordDAO_interface{
 			while (rs.next()) {
 				message_recordVO = new Message_RecordVO();
 				message_recordVO.setEmp_no(rs.getString("EMP_NO"));
+				message_recordVO.setMsg_cont(rs.getString("MSG_CONT"));
+				message_recordVO.setMsg_time(rs.getDate("MSG_TIME"));
+				message_recordVO.setMsg_sts(rs.getInt("MSG_STS"));
+				list.add(message_recordVO);
+			}
+		} catch(ClassNotFoundException ce) {
+			throw new RuntimeException("Couldn't load database driver. "+ ce.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Message_RecordVO> findByEmpNo(String emp_no) {
+		List<Message_RecordVO> list = new ArrayList<Message_RecordVO>();
+		Message_RecordVO message_recordVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(GET_BY_EMPNO);
+			pstmt.setString(1, emp_no);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				message_recordVO = new Message_RecordVO();
+				message_recordVO.setMem_no(rs.getString("MEM_NO"));
 				message_recordVO.setMsg_cont(rs.getString("MSG_CONT"));
 				message_recordVO.setMsg_time(rs.getDate("MSG_TIME"));
 				message_recordVO.setMsg_sts(rs.getInt("MSG_STS"));
