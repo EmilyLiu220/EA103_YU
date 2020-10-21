@@ -109,7 +109,7 @@
 	
 	
 	
-	<%-- 以下為 navbar 內容 --%>
+	<%-- 客服聊天室開始 --%>
 	<div class="msg">
 		<button type="button" class="btn" style="box-shadow: 0 0 0; padding:0px" onclick="popMsg()">
 			<img id="custSvc" src="<%=request.getContextPath()%>/front-end/images/msg.png">
@@ -117,6 +117,11 @@
 		<div>
 		</div>
 	</div>
+	<%-- 客服聊天室結束 --%>
+
+
+
+	<%-- 以下為 navbar 內容 --%>
 	<div class="py-1 bg-black top">
 		<div class="container">
 			<div
