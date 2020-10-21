@@ -11,15 +11,9 @@
 
 <title>Front_Inform.jsp</title>
 
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap"
-	rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
@@ -186,8 +180,7 @@ padding-right: 17px;
 
 	<%-- 以下為輪播的地方 --%>
 	<section class="home-slider owl-carousel js-fullheight">
-		<div class="slider-item js-fullheight"
-			style="background-image: url(<%=request.getContextPath()%>/front-end/images/carousel_1.jpg);">
+		<div class="slider-item js-fullheight" style="background-image: url(<%=request.getContextPath()%>/front-end/images/carousel_1.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div
@@ -497,6 +490,8 @@ padding-right: 17px;
 	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.timepicker.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/scrollax.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
 	<%-- script 結束 --%>
 </body>
