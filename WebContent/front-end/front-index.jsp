@@ -9,7 +9,7 @@
 
 <meta charset="UTF-8">
 
-<title>Front-index.jsp</title>
+<title>Front_Inform.jsp</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,47 +32,18 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/fiNmsg.css">
 
 <style>
-.msg {
-	position: fixed;
-	z-index: 500;
-	bottom: 5%;
-	right: 5%;
-}
 
 .blank {
 	width: 500px;
 	height: 1000px;
 }
-table{
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
 
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-.badge {
-  min-width: 1px;
-  padding: 3px 3px;
-  vertical-align: text-bottom;
-  background-color: #FF0000;
-  display: none;
-}
 .modal-open .top,
 .modal-open .msg {
 padding-right: 17px;
-}
-
-#fi_cont{
- color: #000;
 }
 
 </style>
@@ -138,8 +109,7 @@ padding-right: 17px;
 	
 	
 	
-	
-	<%-- 以下為 navbar 內容 --%>
+	<%-- 客服聊天室開始 --%>
 	<div class="msg">
 		<button type="button" class="btn" style="box-shadow: 0 0 0; padding:0px" onclick="popMsg()">
 			<img id="custSvc" src="<%=request.getContextPath()%>/front-end/images/msg.png">
@@ -147,6 +117,11 @@ padding-right: 17px;
 		<div>
 		</div>
 	</div>
+	<%-- 客服聊天室結束 --%>
+
+
+
+	<%-- 以下為 navbar 內容 --%>
 	<div class="py-1 bg-black top">
 		<div class="container">
 			<div
@@ -162,6 +137,7 @@ padding-right: 17px;
 						</div>
 						<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
 							<p class="mb-0 register-link">
+								<%-- 小鈴鐺圖示開始 --%>
 								<span class="mybb">
 									<span class="badge"> </span>
 									<button type="button" class="btn" style="color: #c8a97e; padding: 0px;" onclick="popFrontInform()">
@@ -169,6 +145,7 @@ padding-right: 17px;
 										<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" /></svg>
 									</button>
 								</span>
+								<%-- 小鈴鐺圖示結束 --%>
 								<span class="mybb"><a href="menu.html" class="myaa">會員中心</a></span>
 								<span class="mybb"><a href="blog.html" class="myaa">註冊</a></span>
 								<span class="mybb"><a href="contact.html" class="myaa">登入</a></span>
@@ -398,7 +375,7 @@ padding-right: 17px;
 		<%-- 可在 modal 處自由加入想要擋住的內容 --%>
 		var nb = $('nav.navbar-fixed-top');
 		$('.modal')
-		.on('show.bs.modal', function () {
+	    .on('show.bs.modal', function () {
 	        nb.width(nb.width());
 	    })
 	    .on('hidden.bs.modal', function () {
