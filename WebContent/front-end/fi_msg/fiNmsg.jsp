@@ -32,18 +32,47 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/fiNmsg.css">
 
 <style>
+.msg {
+	position: fixed;
+	z-index: 500;
+	bottom: 5%;
+	right: 5%;
+}
 
 .blank {
 	width: 500px;
 	height: 1000px;
 }
+table{
+	width: 800px;
+	background-color: white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+table, th, td {
+	border: 1px solid #CCCCFF;
+}
 
+th, td {
+	padding: 5px;
+	text-align: center;
+}
+.badge {
+  min-width: 1px;
+  padding: 3px 3px;
+  vertical-align: text-bottom;
+  background-color: #FF0000;
+  display: none;
+}
 .modal-open .top,
 .modal-open .msg {
-	padding-right: 17px;
+padding-right: 17px;
+}
+
+#fi_cont{
+ color: #000;
 }
 
 </style>
