@@ -65,7 +65,7 @@
 						<li><a href="<%=request.getContextPath()%>/back-end/inform_set/select_is.jsp">通知設定管理</a></li>
 						<li><a href="#">評價管理</a></li>
 						<li><a href="#">用餐時段管理</a></li>
-						<li><a href="#">桌位管理</a></li>
+						<li><a href="<%=request.getContextPath()%>/back-end/seat/editSeat.jsp">桌位管理</a></li>
 						<li><a href="#">菜單管理</a></li>
 						<li><a href="#">食材管理</a></li>
 						<li><a href="#">餐點組成管理</a></li>
@@ -76,6 +76,7 @@
 				<li><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">一般員工專區</a>
 					<ul class="collapse list-unstyled" id="homeSubmenu">
 						<li><a href="<%=request.getContextPath()%>/back-end/front_inform/empCheckInform_New.jsp">查看通知</a></li>
+						<li><a href="<%=request.getContextPath()%>/back-end/message_record/backEndChatRoom.jsp">查看聊天室訊息</a></li>
 						<li><a href="#">訂單派工</a></li>
 						<li><a href="#">出餐管理</a></li>
 						<li><a href="#">訂餐訂單處理</a></li>
