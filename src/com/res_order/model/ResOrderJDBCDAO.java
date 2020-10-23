@@ -18,9 +18,11 @@ public class ResOrderJDBCDAO implements ResOrderDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT RES_NO ,MEAL_ORDER_NO ,MEM_NO ,EMP_NO ,RES_TIME ,RES_DATE ,PEOPLE ,TIME_PERI_NO ,INFO_STS, SEAT_STS FROM RES_ORDER ORDER BY RES_NO";
 	private static final String GET_ONE_STMT = "SELECT MEAL_ORDER_NO ,MEM_NO ,EMP_NO ,RES_TIME ,RES_DATE ,PEOPLE ,TIME_PERI_NO ,INFO_STS, SEAT_STS FROM RES_ORDER WHERE RES_NO = ?";
 	private static final String UPDATE = "UPDATE RES_ORDER SET MEAL_ORDER_NO=? ,MEM_NO=? ,EMP_NO=? ,RES_DATE=? ,PEOPLE=? ,TIME_PERI_NO=? ,INFO_STS=? ,SEAT_STS=? WHERE RES_NO = ?";
+	private static final String GET_ONE_MEM_STMT = "SELECT RES_NO, MEAL_ORDER_NO, MEM_NO, EMP_NO, RES_TIME, RES_DATE, PEOPLE, TIME_PERI_NO, INFO_STS, SEAT_STS FROM RES_ORDER WHERE MEM_NO = ?";
+	private static final String GET_RES_DATE_AND_TIME_PERI_STMT = "SELECT RES_NO, MEAL_ORDER_NO, MEM_NO, EMP_NO, RES_TIME, RES_DATE, PEOPLE, TIME_PERI_NO, INFO_STS, SEAT_STS FROM RES_ORDER WHERE RES_DATE = ? AND TIME_PERI_NO = ?";
 
 	@Override
-	public void insert(ResOrderVO resOrderVO) {
+	public String insert(ResOrderVO resOrderVO, String seats_no[]) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -65,6 +67,7 @@ public class ResOrderJDBCDAO implements ResOrderDAO_interface {
 				}
 			}
 		}
+		return null;
 	}
 
 	@Override
@@ -86,7 +89,7 @@ public class ResOrderJDBCDAO implements ResOrderDAO_interface {
 			pstmt.setInt(7, new Integer(resOrderVO.getInfo_sts()));
 			pstmt.setInt(8, new Integer(resOrderVO.getSeat_sts()));
 			pstmt.setString(9, resOrderVO.getRes_no());
-			
+
 			pstmt.executeUpdate();
 
 			System.out.println("Update success");
@@ -184,7 +187,74 @@ public class ResOrderJDBCDAO implements ResOrderDAO_interface {
 	}
 
 	@Override
-	public List<ResOrderVO> getAll() {
+	public ResOrderVO findByMEM_NO(String mem_no) {
+		ResOrderVO resOrderVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_MEM_STMT);
+
+			pstmt.setString(1, mem_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				resOrderVO = new ResOrderVO();
+
+				resOrderVO.setRes_no(rs.getString("RES_NO"));
+				resOrderVO.setMeal_order_no(rs.getString("MEAL_ORDER_NO"));
+				resOrderVO.setMem_no(rs.getString("MEM_NO"));
+				resOrderVO.setEmp_no(mem_no);
+				resOrderVO.setRes_time(rs.getTimestamp("RES_TIME"));
+				resOrderVO.setRes_date(rs.getDate("RES_DATE"));
+				resOrderVO.setPeople(rs.getInt("PEOPLE"));
+				resOrderVO.setTime_peri_no(rs.getString("TIME_PERI_NO"));
+				resOrderVO.setInfo_sts(new Integer(rs.getInt("INFO_STS")));
+				resOrderVO.setSeat_sts(new Integer(rs.getInt("SEAT_STS")));
+			}
+
+			System.out.println("FindByPrimaryKey success");
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return resOrderVO;
+	}
+
+	@Override
+	public List<ResOrderVO> findByMEM_NO_getAll(String mem_no) {
 		List<ResOrderVO> list = new ArrayList<ResOrderVO>();
 		ResOrderVO resOrderVO = null;
 
@@ -196,30 +266,32 @@ public class ResOrderJDBCDAO implements ResOrderDAO_interface {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt = con.prepareStatement(GET_ONE_MEM_STMT);
+
+			pstmt.setString(1, mem_no);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 //				if (new Integer(rs.getInt("SEAT_ISDEL")) == 0) {
-					resOrderVO = new ResOrderVO();
+				resOrderVO = new ResOrderVO();
 
-					resOrderVO.setRes_no(rs.getString("RES_NO"));
-					resOrderVO.setMeal_order_no(rs.getString("MEAL_ORDER_NO"));
-					resOrderVO.setMem_no(rs.getString("MEM_NO"));
-					resOrderVO.setEmp_no(rs.getString("EMP_NO"));
-					resOrderVO.setRes_time(rs.getTimestamp("RES_TIME"));
-					resOrderVO.setRes_date(rs.getDate("RES_DATE"));
-					resOrderVO.setPeople(rs.getInt("PEOPLE"));
-					resOrderVO.setTime_peri_no(rs.getString("TIME_PERI_NO"));
-					resOrderVO.setInfo_sts(new Integer(rs.getInt("INFO_STS")));
-					resOrderVO.setSeat_sts(new Integer(rs.getInt("SEAT_STS")));
+				resOrderVO.setRes_no(rs.getString("RES_NO"));
+				resOrderVO.setMeal_order_no(rs.getString("MEAL_ORDER_NO"));
+				resOrderVO.setMem_no(mem_no);
+				resOrderVO.setEmp_no(rs.getString("EMP_NO"));
+				resOrderVO.setRes_time(rs.getTimestamp("RES_TIME"));
+				resOrderVO.setRes_date(rs.getDate("RES_DATE"));
+				resOrderVO.setPeople(rs.getInt("PEOPLE"));
+				resOrderVO.setTime_peri_no(rs.getString("TIME_PERI_NO"));
+				resOrderVO.setInfo_sts(new Integer(rs.getInt("INFO_STS")));
+				resOrderVO.setSeat_sts(new Integer(rs.getInt("SEAT_STS")));
 
-					list.add(resOrderVO); // Store the row in the list
+				list.add(resOrderVO); // Store the row in the list
 //				}
 			}
-			
+
 			System.out.println("Get All success");
-			
+
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -256,9 +328,156 @@ public class ResOrderJDBCDAO implements ResOrderDAO_interface {
 		return list;
 	}
 
-//	public static void main(String[] args) {
+	@Override
+	public List<ResOrderVO> findByResDate_And_TimePeri_getAll(String res_date, String time_peri_no) {
+		List<ResOrderVO> list = new ArrayList<ResOrderVO>();
+		ResOrderVO resOrderVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_RES_DATE_AND_TIME_PERI_STMT);
+
+			pstmt.setDate(1, java.sql.Date.valueOf(res_date));
+			pstmt.setString(2, time_peri_no);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+//				if (new Integer(rs.getInt("SEAT_ISDEL")) == 0) {
+				resOrderVO = new ResOrderVO();
+
+				resOrderVO.setRes_no(rs.getString("RES_NO"));
+				resOrderVO.setMeal_order_no(rs.getString("MEAL_ORDER_NO"));
+				resOrderVO.setMem_no(rs.getString("MEM_NO"));
+				resOrderVO.setEmp_no(rs.getString("EMP_NO"));
+				resOrderVO.setRes_time(rs.getTimestamp("RES_TIME"));
+				resOrderVO.setRes_date(java.sql.Date.valueOf(res_date));
+				resOrderVO.setPeople(rs.getInt("PEOPLE"));
+				resOrderVO.setTime_peri_no(time_peri_no);
+				resOrderVO.setInfo_sts(new Integer(rs.getInt("INFO_STS")));
+				resOrderVO.setSeat_sts(new Integer(rs.getInt("SEAT_STS")));
+
+				list.add(resOrderVO); // Store the row in the list
+//				}
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// bytesArrayToByteObject error
+		} catch (NullPointerException npe) {
+			throw new RuntimeException("A bytesArrayToByteObject error occured. " + npe.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<ResOrderVO> getAll() {
+		List<ResOrderVO> list = new ArrayList<ResOrderVO>();
+		ResOrderVO resOrderVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+//				if (new Integer(rs.getInt("SEAT_ISDEL")) == 0) {
+				resOrderVO = new ResOrderVO();
+
+				resOrderVO.setRes_no(rs.getString("RES_NO"));
+				resOrderVO.setMeal_order_no(rs.getString("MEAL_ORDER_NO"));
+				resOrderVO.setMem_no(rs.getString("MEM_NO"));
+				resOrderVO.setEmp_no(rs.getString("EMP_NO"));
+				resOrderVO.setRes_time(rs.getTimestamp("RES_TIME"));
+				resOrderVO.setRes_date(rs.getDate("RES_DATE"));
+				resOrderVO.setPeople(rs.getInt("PEOPLE"));
+				resOrderVO.setTime_peri_no(rs.getString("TIME_PERI_NO"));
+				resOrderVO.setInfo_sts(new Integer(rs.getInt("INFO_STS")));
+				resOrderVO.setSeat_sts(new Integer(rs.getInt("SEAT_STS")));
+
+				list.add(resOrderVO); // Store the row in the list
+//				}
+			}
+
+			System.out.println("Get All success");
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// bytesArrayToByteObject error
+		} catch (NullPointerException npe) {
+			throw new RuntimeException("A bytesArrayToByteObject error occured. " + npe.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	public static void main(String[] args) {
 //
-//		ResOrderJDBCDAO dao = new ResOrderJDBCDAO();
+		ResOrderJDBCDAO dao = new ResOrderJDBCDAO();
 //		// insert
 //		ResOrderVO resOrderVO = new ResOrderVO();
 //		resOrderVO.setMeal_order_no(null);
@@ -312,5 +531,36 @@ public class ResOrderJDBCDAO implements ResOrderDAO_interface {
 //			System.out.print(resOrderVO3.getSeat_sts() + ",\t");
 //			System.out.println();
 //		}
-//	}
+//
+//		// select all
+//		List<ResOrderVO> list1 = dao.findByMEM_NO_getAll("MEM0032");
+//		for (ResOrderVO resOrderVO3 : list1) {
+//			System.out.print(resOrderVO3.getRes_no() + ",\t");
+//			System.out.print(resOrderVO3.getMeal_order_no() + ",\t");
+//			System.out.print(resOrderVO3.getMem_no() + ",\t");
+//			System.out.print(resOrderVO3.getEmp_no() + ",\t");
+//			System.out.print(resOrderVO3.getRes_time() + ",\t");
+//			System.out.print(resOrderVO3.getRes_date() + ",\t");
+//			System.out.print(resOrderVO3.getPeople() + ",\t");
+//			System.out.print(resOrderVO3.getTime_peri_no() + ",\t");
+//			System.out.print(resOrderVO3.getInfo_sts() + ",\t");
+//			System.out.print(resOrderVO3.getSeat_sts() + ",\t");
+//			System.out.println();
+		
+		List<ResOrderVO> list2 = dao.findByResDate_And_TimePeri_getAll("2020-10-17", "TP0006");
+		for (ResOrderVO resOrderVO4 : list2) {
+			System.out.print(resOrderVO4.getRes_no() + ",\t");
+			System.out.print(resOrderVO4.getMeal_order_no() + ",\t");
+			System.out.print(resOrderVO4.getMem_no() + ",\t");
+			System.out.print(resOrderVO4.getEmp_no() + ",\t");
+			System.out.print(resOrderVO4.getRes_time() + ",\t");
+			System.out.print(resOrderVO4.getRes_date() + ",\t");
+			System.out.print(resOrderVO4.getPeople() + ",\t");
+			System.out.print(resOrderVO4.getTime_peri_no() + ",\t");
+			System.out.print(resOrderVO4.getInfo_sts() + ",\t");
+			System.out.print(resOrderVO4.getSeat_sts() + ",\t");
+			System.out.println();
+
+		}
+	}
 }

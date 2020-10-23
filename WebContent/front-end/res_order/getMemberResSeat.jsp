@@ -6,7 +6,7 @@
 <%@ page import="com.res_order.model.*"%>
 <%
 	ResOrderService resOrderSvc = new ResOrderService();
-	List<ResOrderVO> list = resOrderSvc.getOneMemberResOrder("MEM0010");
+List<ResOrderVO> list = resOrderSvc.getOneMemberResOrder("MEM0010");
 	pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
