@@ -8,7 +8,7 @@ package com.time_peri.model;
  */
 public class TimePeriVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String time_peri_no; // PK
 	private String time_start;
 	private Integer time_dur;
@@ -64,4 +64,9 @@ public class TimePeriVO implements java.io.Serializable {
 		this.time_sts = time_sts;
 	}
 
+	@Override
+	public String toString() {
+		return "{time_peri_no:" + time_peri_no + ", time_start:" + time_start.replaceFirst(":", "-") + ", time_dur:" + time_dur + ", time_end:"
+				+ time_end.replaceFirst(":", "-") + ", isdel_sts:" + isdel_sts + ", time_sts:" + time_sts + "}";
+	}
 }

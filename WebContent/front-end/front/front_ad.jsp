@@ -10,7 +10,7 @@
 	pageContext.setAttribute("list", list);
 %>
 <html>
-<%@ include file="head_ad.jsp"%>
+<%@ include file="head.jsp"%>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +38,6 @@ body {
 	line-height: 2;
 	font-weight: 700;
 	color: #1f1e1e;
-	background-image: url('images/pageBg.jpg')
 }
 
 element.style {
@@ -57,7 +56,7 @@ a {
 	-webkit-transition: .3s all ease;
 	-o-transition: .3s all ease;
 	transition: .3s all ease;
- 	color: #3e2605; 
+	color: #3e2605;
 	margin-left: 20px;
 }
 
@@ -91,86 +90,49 @@ th, td {
 	padding: 5px;
 	text-align: center;
 }
-
 .card.shadow.mb-4 {
-	top: 30px;
-	bottom: 30px;
+    top: 30px;
+    bottom:30px;
 }
 
-/* .ul { */
-/* 	border-top: 1px solid #cacaca; */
-/* 	border-bottom: 1px solid #cacaca; */
-/* } */
-hr {
-	border-top: 0px solid rgba(0, 0, 0, 0.1);
-}
-
-hd {
-	margin-bottom: 40px;
-}
-
-.hd a, .hd span {
-	display: inline-block;
-	font-size: 14px;
-	letter-spacing: .5px;
-	color: #767676;
-	text-transform: uppercase;
-	height: 10px;
-	border-top-width: 50px;
-	margin-top: 80px;
-	margin-bottom: -30px;
-}
-
-container {
-	height: 100%;
-	width: 100%;
-}
 </style>
 
-<div class="container">
-	<div class="hd" style="margin-bottom: -30px;">
-		<a href="">首頁</a> <span>最新消息</span>
-	</div>
-	<div class="font-weight-light text-center text-lg-left mt-4 mb-0">
-		<ul class="classLink"
-			style="border-top: 1px solid #cacaca; border-bottom: 1px solid #cacaca;">cccc
-		</ul>
-	</div>
-
-	<hr class="mt-2 mb-5">
-
-	<div class="row text-center text-lg-left">
-		<%@ include file="page1-1.file"%>
-
-
-		<c:forEach var="adVO" items="${list}" begin="<%=pageIndex%>"
-			end="<%=pageIndex+rowsPerPage-1%>">
-			<div class="col-lg-3 col-md-4 col-6">
-				<a href="#" class="d-block mb-4 h-100"> <img
-					class="img-fluid img-thumbnail"
-					src="<%=request.getContextPath() %>/ad/ad.do?add_no=${adVO.ad_no}"
-					alt="">
-				</a>
+<div id="wrapper">
+	<div id="content-wrapper" class="d-flex flex-column">
+		<div id="content" style="height: 900px;">
+			<div class="container-fluid">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3"></div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<div id="dataTable_wrapper"
+								class="dataTables_wrapper dt-bootstrap4">
+								<div class="col-sm-12">
+									<table class="table table-bordered dataTable" id="dataTable"
+										width="100%" cellspacing="0" role="grid"
+										aria-describedby="dataTable_info" style="width: 100%;">
+										<%@ include file="page1.file"%>
+										<tbody>
+											<c:forEach var="adVO" items="${list}" begin="<%=pageIndex%>"
+												end="<%=pageIndex+rowsPerPage-1%>">
+												<tr>
+													<td style="width:100px;">${adVO.ad_title}</td>
+													<td style="width:800px;">${adVO.ad_cont}</td>
+													<td style="width:105px;">${adVO.ad_add_date}</td>
+													<td style="width:105px;">${adVO.ad_re_date}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+									<%@ include file="page2.file"%>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-
-			<div class="col-lg-3 col-md-4 col-6">
-				<div>${adVO.ad_add_date}</div>
-				
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do">
-					<a href="#" class="d-block mb-4 h-100" style="font-size: 20px">${adVO.ad_title}<br>
-						<button type="submit" class="btn btn-outline-dark"
-							style="border-radius: 100%" name="action"
-							value="getFrontOne_For_Display">詳</button>
-					</a>
-					<input type="hidden" name="ad_no" value="${adVO.ad_no}">
-					</FORM>
-			</div>
-			
-		</c:forEach>
-
+		</div>
 	</div>
 </div>
-
-<!-- /.container -->
 <%@ include file="footer.jsp"%>
 </html>

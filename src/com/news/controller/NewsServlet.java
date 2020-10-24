@@ -102,6 +102,7 @@ public class NewsServlet extends HttpServlet {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/news/listAllnews.jsp");
 				failureView.forward(req, res);
+
 			}
 		}
 

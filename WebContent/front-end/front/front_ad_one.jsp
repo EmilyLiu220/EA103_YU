@@ -170,7 +170,7 @@ font-size: 10px;
 		</div>
 
 		<div
-			style= "margin-bottom: 40px; margin-top: 40px;">${adVO.ad_cont}</div>
+			style="text-align: center; margin-bottom: 40px; margin-top: 40px;">${adVO.ad_cont}</div>
 		<div class="btn" >
 			<a  class="btn btn-outline-dark" style="font-size:5px"
 				href="<%=request.getContextPath()%>/front-end/front/front_ad_new.jsp">上一頁</a>

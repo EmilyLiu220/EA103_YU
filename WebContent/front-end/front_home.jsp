@@ -37,9 +37,8 @@
 
 <style>
 
-.modal-open .top,
-.modal-open .msg {
-padding-right: 17px;
+.unshow {
+	display: none;
 }
 
 </style>
@@ -102,17 +101,15 @@ padding-right: 17px;
 	
 	
 	<%-- 客服聊天室開始 --%>
-	<div class="msg">
-		<a href="#" class="open-btn" id="addClass">
-			<button type="button" class="btn" style="box-shadow: 0 0 0; padding:0px" onclick="message()">
-				<img src="<%=request.getContextPath()%>/front-end/images/msg.png" alt="">
-			</button>
-		</a>
+	<div class="msg" >
+		<div id="addClass">
+			<img id="custSvc" src="<%=request.getContextPath()%>/front-end/images/msg.png">
+		</div>
 		<div class="container">
         	<div>
             	<aside id="sidebar_secondary" class="tabbed_sidebar ng-scope chat_sidebar">
                 	<div class="popup-head">
-                    	<div class="popup-head-right pull-right">
+                    	<div class="popup-head-right pull-right row justify-content-end">
                         	<button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><img id="chatClose" src="<%=request.getContextPath()%>/front-end/images/x.png"></button>
               	      </div>
               	  </div>
@@ -178,7 +175,7 @@ padding-right: 17px;
                             	<input type="text" placeholder="Type a message" id="submit_message" name="submit_message" class="md-input">
                         	</div>
                         	<span class="uk-input-group-addon">
-                            	<a href="#"><img id="sendMsg" src="<%=request.getContextPath()%>/front-end/images/send.png"></a>
+                            	<img id="sendMsg" src="<%=request.getContextPath()%>/front-end/images/send.png">
                         	</span>
                     	</div>
                 	</div>
@@ -215,9 +212,13 @@ padding-right: 17px;
 									</button>
 								</span>
 								<%-- 小鈴鐺圖示結束 --%>
-								<span class="mybb"><a href="menu.html" class="myaa">會員中心</a></span>
-								<span class="mybb"><a href="blog.html" class="myaa">註冊</a></span>
-								<span class="mybb"><a href="contact.html" class="myaa">登入</a></span>
+								<span class="mybb"><a href="<%=request.getContextPath() %>/front-end/mem/login_success_mem.jsp" class="myaa"><span id="member">會員中心</span></a></span>
+								<span class="mybb"><a href="<%=request.getContextPath() %>/front-end/mem/addMem.jsp" class="myaa"><span id="sign">註冊</span></a></span>
+								<span class="mybb"><a href="<%=request.getContextPath() %>/front-end/mem/login_mem.jsp" class="myaa"><span id="login">登入</span></a></span>
+								
+								<span class="mybb"><span id="mem_name" class="unshow">${memVO2.mem_name}</span></span>
+								<span class="mybb"><span id="hello" class="unshow">您好！</span></span>
+								<span class="mybb"><a href="<%=request.getContextPath() %>/front-end/mem/mem.do?action=logout" class="myaa"><span id="logout" class="unshow">登出</span></a></span>
 						</div>
 					</div>
 				</div>
@@ -246,7 +247,7 @@ padding-right: 17px;
 					<li class="nav-item"><a href="" class="nav-link">餐廳資訊</a></li>
 					<li class="nav-item"><a href="" class="nav-link">候位狀況</a></li>
 					<li class="nav-item"><a href="" class="nav-link">我要訂餐</a></li>
-					<li class="nav-item"><a href="" class="nav-link">我要訂位</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/res_order/orderSeat.jsp" class="nav-link">我要訂位</a></li>
 				</ul>
 			</div>
 		</div>
@@ -634,7 +635,7 @@ padding-right: 17px;
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-	        <button type="button" class="btn btn-primary" onclick="location.href='contact.html'">我要登入</button>
+	        <button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/front-end/mem/login_mem.jsp'">我要登入</button>
 	      </div>
 	    </div>
 	  </div>
@@ -763,6 +764,32 @@ padding-right: 17px;
 			console.log("QQ")
 		}
 	</script>
+	
+	<script>
+		
+		<!--判斷現在是登入或登出的狀態 -->
+		var sign = document.getElementById("sign");
+		var login = document.getElementById("login");
+		var mem_name = document.getElementById("mem_name");
+		var hello = document.getElementById("hello");
+		var logout = document.getElementById("logout");
+		
+		if (mem_name.innerText !== "") {
+			sign.classList.add('unshow');
+			login.classList.add('unshow');
+			mem_name.classList.remove('unshow');
+			hello.classList.remove('unshow');
+			logout.classList.remove('unshow');
+		} else {
+			sign.classList.remove('unshow');
+			login.classList.remove('unshow');
+			mem_name.classList.add('unshow');
+			hello.classList.add('unshow');
+			logout.classList.add('unshow');
+		}
+		
+	</script>
+	
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.easing.1.3.js"></script>

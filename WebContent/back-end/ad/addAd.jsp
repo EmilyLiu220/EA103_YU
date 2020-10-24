@@ -235,11 +235,6 @@ img {
 						<td>ad_re_date:</td>
 						<td><input name="ad_re_date" id="re_date" type="text"></td>
 					</tr>
-					<tr >
-						<td>ad_sts:</td>
-						<td><input type="TEXT" name="ad_sts" size="45"
-							value="<%=(adVO == null) ? "" : adVO.getAd_sts()%>" /></td>
-					</tr>
 				</table>
 
 				<div>

@@ -223,6 +223,18 @@ public class MealOrderServlet extends HttpServlet {
 			success.forward(req, res);
 
 		}
+		
+		if ("prepared".equals(action)) {
+			
+			String mealOrderNo = (String) req.getParameter("meal_order_no");
+			Integer mealOrderSts = new Integer(3);
+			Integer notiSts = new Integer(req.getParameter("noti_sts"));
+			Integer paySts = new Integer(req.getParameter("pay_sts"));
+			MealOrderService mealOrderSrv = new MealOrderService();
+			MealOrderVO mealOrderVO = mealOrderSrv.searchByOrderNo(mealOrderNo);
+			mealOrderSrv.updateOrderSts(mealOrderNo, mealOrderSts, notiSts, paySts);
+
+		}
 
 		if ("search".equals(action)) {
 //			System.out.println(req.getParameter("queryString"));

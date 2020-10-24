@@ -11,10 +11,6 @@
 	pageContext.setAttribute("list", list);
 %>
 
-<%
-	AdVO adVO = (AdVO) request.getAttribute("adVO"); //AdServlet.java (Controller) 存入req的adVO物件 (包括幫忙取出的adVO, 也包括輸入資料錯誤時的adVO物件)
-%>
-
 <html>
 <head>
 
@@ -212,7 +208,6 @@ img {
 		<th>起始日期</th>
 		<th>結束日期</th>
 		<th>廣告圖片</th>
-		<th style="text-align:center">狀態</th>
 	</tr>
 
  	<%@ include file="page1.file"%> 
@@ -227,8 +222,7 @@ img {
 			<td style="width:100px;">${adVO.ad_add_date}</td>
 			<td style="width:100px;">${adVO.ad_re_date}</td>
 			<td><img src="<%=request.getContextPath() %>/ad/ad.do?add_no=${adVO.ad_no}"></td>
-			<td style="width:100px;"align="center">${adVO.ad_sts}</td>
-			
+
 			<td>
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
 					style="margin-bottom: 0px;">
@@ -245,36 +239,6 @@ img {
 					<input type="hidden" name="action" value="delete">
 				</FORM>
 			</td>
-			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
-					style="margin-bottom: 0px;">
-					<button type="submit" value="">上架</button>
-					<input type="hidden" name="ad_no" value="${adVO.ad_no}"> 
-					<input type="hidden" name="action" value="up">
-				</FORM>
-			</td>
-			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
-					style="margin-bottom: 0px;">
-					<button type="submit" value="">下架</button>
-					<input type="hidden" name="ad_no" value="${adVO.ad_no}"> 
-					<input type="hidden" name="action" value="down">
-				</FORM>
-			</td>
-			
-<!-- 			<td>text:</td> -->
-<%-- 						<td><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do" style="margin-bottom: 0px;"> --%>
-						
-<!-- 						<input type="radio" value="">  -->
-<%-- 						<input type="hidden" name="ad_no" value="${adVO.ad_no}">  --%>
-<!-- 						<input type="hidden" name="action" value="down"> -->
-						
-<!-- 						<input type="radio" name="ad_sts" size="45" value="1" -->
-<%-- 							<%=adVO.getAd_sts() == 1 ? "checked" : ""%> />1  --%>
-<!-- 							<input type="radio"name="ad_sts" size="45" value="2" -->
-<%-- 							<%=adVO.getAd_sts() == 2 ? "checked" : ""%> />2  --%>
-<!-- 							<input type="radio"name="ad_sts" size="45" value="0" -->
-<%-- 							<%=adVO.getAd_sts() == 0 ? "checked" : ""%> />0</FORM></td> --%>
 		</tr>
 	</c:forEach>
 </table>

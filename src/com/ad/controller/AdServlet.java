@@ -18,7 +18,6 @@ public class AdServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-
 		AdService addSvc = new AdService();
 
 		String add_no = req.getParameter("add_no");
@@ -32,9 +31,9 @@ public class AdServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		
 //		==========================
-
+		
 		String action = req.getParameter("action");
 
 		// insert
@@ -53,12 +52,12 @@ public class AdServlet extends HttpServlet {
 				String ad_title = req.getParameter("ad_title").trim();
 
 				if (ad_title == null || ad_title.trim().length() == 0) {
-					errorMsgs.add("廣告標題，請勿空白");
+					errorMsgs.add("請勿空白");
 				}
 				String ad_cont = req.getParameter("ad_cont").trim();
 
 				if (ad_cont == null || ad_cont.trim().length() == 0) {
-					errorMsgs.add("廣告內容，請勿空白");
+					errorMsgs.add("請勿空白");
 				}
 
 				java.sql.Date ad_add_date = null;
@@ -79,25 +78,18 @@ public class AdServlet extends HttpServlet {
 					errorMsgs.add("請輸入日期!");
 				}
 
-				Integer ad_sts = null;
-				try {
-					ad_sts = new Integer(req.getParameter("ad_sts").trim());
-				} catch (NumberFormatException n) {
-					errorMsgs.add("請輸入狀態!");
-				}
-
 //			          抓取登入員工
 //				HttpSession session = req.getSession();
 //				EmpVO empVO = (EmpVO)session.getAttribute("EmpVO");
 //				String emp_no = empVO.getEmp_no();
-
+				
 				AdVO adVO = new AdVO();
 				adVO.setEmp_no(emp_no);
 				adVO.setAd_title(ad_title);
 				adVO.setAd_cont(ad_cont);
 				adVO.setAd_add_date(ad_add_date);
 				adVO.setAd_re_date(ad_re_date);
-				adVO.setAd_sts(ad_sts);
+
 				Part ad_img = req.getPart("ad_img");
 				byte[] img = null;
 
@@ -108,14 +100,14 @@ public class AdServlet extends HttpServlet {
 						is.read(img);
 						is.close();
 					}
-				} else {
-					errorMsgs.add("廣告照片: 請勿空白");
+				}else {
+					errorMsgs.add("ad_img: 請勿空白");
 				}
 //					else {
 //					AdService adSvc= new AdService();
 //					AdVO adVO= adSvc.get_One_AD(ad_no);
 //					img =ad.getAd_img;
-//				}
+//				}	
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("adVO", adVO); // 含有輸入格式錯誤的adVO物件,也存入req
@@ -125,7 +117,7 @@ public class AdServlet extends HttpServlet {
 				}
 				/*************************** 2.開始修改資料 *****************************************/
 				AdService adSvc = new AdService();
-				adVO = adSvc.addAd(emp_no, ad_title, ad_cont, ad_add_date, ad_re_date, img, ad_sts);
+				adVO = adSvc.addAd(emp_no, ad_title, ad_cont, ad_add_date, ad_re_date, img);
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/back-end/ad/listAllAd.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllAd.jsp
@@ -137,7 +129,6 @@ public class AdServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//		--------------------------------
 		// delete
 		if ("delete".equals(action)) { // 來自listAllAd.jsp
 
@@ -162,46 +153,7 @@ public class AdServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-//		--------------------------------------
-		// down
 
-//		if ("down".equals(action)) { // 來自listAllAd.jsp
-//
-//			String ad_no = req.getParameter("ad_no").trim();
-//			String emp_no = req.getParameter("emp_no");
-//			
-//			Integer ad_sts = null;
-//			ad_sts = new Integer(req.getParameter("ad_sts").trim());
-//			
-//			java.sql.Date ad_add_date = null;
-//			ad_add_date = java.sql.Date.valueOf(req.getParameter("ad_add_date").trim());
-//			
-//			java.sql.Date ad_re_date = null;
-//			ad_re_date = java.sql.Date.valueOf(req.getParameter("ad_re_date").trim());
-//
-//			
-//			AdVO adVO = new AdVO();
-//			adVO.setAd_no(ad_no);
-//			adVO.setEmp_no(emp_no);
-//			adVO.setAd_sts(ad_sts);
-//			adVO.setAd_add_date(ad_add_date);
-//			adVO.setAd_re_date(ad_re_date);
-//			
-//
-//			/*************************** 2.開始修改資料 *****************************************/
-//			AdService Svcad_sts = new AdService();
-//			adVO = Svcad_sts.updateAd_sts(ad_no, emp_no, ad_sts, ad_add_date, ad_re_date);
-//
-//			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-//			req.setAttribute("adVO", adVO); // 資料庫update成功後,正確的的adVO物件,存入req
-//			String url = "/back-end/ad/listAllAd.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneAd.jsp
-//			successView.forward(req, res);
-//			/*************************** 其他可能的錯誤處理 *************************************/
-//		}
-
-//		---------------------------
-		// List
 		if ("getOne_For_Display".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -213,7 +165,7 @@ public class AdServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String str = req.getParameter("ad_no");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入廣告編號");
+					errorMsgs.add("請輸入ad_no");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -233,7 +185,7 @@ public class AdServlet extends HttpServlet {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/ad/select_ad.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
-
+					
 				}
 				/*************************** 2.開始查詢資料 *****************************************/
 				AdService adSvc = new AdService();
@@ -272,7 +224,7 @@ public class AdServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String ad_no = new String(req.getParameter("ad_no"));
-
+				
 				/*************************** 2.開始查詢資料 ****************************************/
 				AdService adSvc = new AdService();
 				AdVO adVO = adSvc.getOneAd(ad_no);
@@ -308,12 +260,12 @@ public class AdServlet extends HttpServlet {
 //				System.out.println(emp_no);
 				String ad_title = req.getParameter("ad_title").trim();
 				if (ad_title == null || ad_title.trim().length() == 0) {
-					errorMsgs.add("活動標題，請勿空白");
+					errorMsgs.add("ad_title: 活動標題，請勿空白");
 				}
 //				System.out.println(ad_title);
 				String ad_cont = req.getParameter("ad_cont").trim();
 				if (ad_cont == null || ad_cont.trim().length() == 0) {
-					errorMsgs.add("活動內容，請勿空白");
+					errorMsgs.add("ad_cont: 活動內容，請勿空白");
 				}
 
 				java.sql.Date ad_add_date = null;
@@ -324,7 +276,6 @@ public class AdServlet extends HttpServlet {
 					errorMsgs.add("請輸入日期!");
 				}
 //				System.out.println(ad_add_date);
-
 				java.sql.Date ad_re_date = null;
 				try {
 					ad_re_date = java.sql.Date.valueOf(req.getParameter("ad_re_date").trim());
@@ -333,16 +284,11 @@ public class AdServlet extends HttpServlet {
 					errorMsgs.add("請輸入日期!");
 				}
 //				System.out.println(ad_re_date);
-
-				Integer ad_sts = null;
-				try {
-					ad_sts = new Integer(req.getParameter("ad_sts").trim());
-				} catch (NumberFormatException n) {
-					errorMsgs.add("請輸入狀態!");
-				}
+			
+			
 
 				Part ad_img = req.getPart("ad_img");
-
+				
 				byte[] img = null;
 				if (ad_img.getSize() != 0) {
 					if (ad_img.getContentType() != null) {
@@ -352,11 +298,11 @@ public class AdServlet extends HttpServlet {
 						is.close();
 					}
 				} else {
-					errorMsgs.add("廣告照片: 請勿空白");
+					errorMsgs.add("ad_img: 請勿空白");
 				}
-
+				
 				System.out.println(ad_img.getName());
-
+				
 				AdVO adVO = new AdVO();
 				adVO.setAd_no(ad_no);
 				adVO.setEmp_no(emp_no);
@@ -364,7 +310,7 @@ public class AdServlet extends HttpServlet {
 				adVO.setAd_cont(ad_cont);
 				adVO.setAd_add_date(ad_add_date);
 				adVO.setAd_re_date(ad_re_date);
-				adVO.setAd_sts(ad_sts);
+
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("adVO", adVO); // 含有輸入格式錯誤的adVO物件,也存入req
@@ -375,10 +321,7 @@ public class AdServlet extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				AdService adSvc = new AdService();
-				adVO = adSvc.updateAd(ad_no, emp_no, ad_title, ad_cont, ad_add_date, ad_re_date, img, ad_sts);
-				
-				
-				
+				adVO = adSvc.updateAd(ad_no, emp_no, ad_title, ad_cont, ad_add_date, ad_re_date, img);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("adVO", adVO); // 資料庫update成功後,正確的的adVO物件,存入req
@@ -392,75 +335,27 @@ public class AdServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		/****************************************************************/
-		
-		if ("down".equals(action)) {
-			
-			List<String> errorMsgs = new LinkedList<String>();
-
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-			
-
-			String str = req.getParameter("ad_no");
-
-			String ad_no = null;
-			ad_no = new String(str);
-			
-			String emp_no = req.getParameter("emp_no");
-			
-			Integer ad_sts = null;
-			ad_sts = new Integer(req.getParameter("ad_sts").trim());
-			
-			java.sql.Date ad_add_date = null;
-			ad_add_date = java.sql.Date.valueOf(req.getParameter("ad_add_date").trim());
-			
-			java.sql.Date ad_re_date = null;
-			ad_re_date = java.sql.Date.valueOf(req.getParameter("ad_re_date").trim());
-			
-			AdVO adVO = new AdVO();
-			adVO.setAd_no(ad_no);
-			adVO.setEmp_no(emp_no);
-			adVO.setAd_sts(ad_sts);
-			adVO.setAd_add_date(ad_add_date);
-			adVO.setAd_re_date(ad_re_date);
-			
-			/*************************** 2.開始修改資料 *****************************************/
-			AdService Svcad_sts = new AdService();
-			adVO = Svcad_sts.downdateAd_sts(ad_no, emp_no, ad_sts, ad_add_date, ad_re_date);
-
-			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("adVO", adVO); // 資料庫update成功後,正確的的adVO物件,存入req
-			String url = "/back-end/ad/listAllAd.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneAd.jsp
-			successView.forward(req, res);
-			/*************************** 其他可能的錯誤處理 *************************************/
-		
-		
-		
-		}
-		
 		/*************************** 前台頁面 *************************************/
-		if ("getFrontOne_For_Display".equals(action)) {
-
+		if("getFrontOne_For_Display".equals(action)) {
+			
 			List<String> errorMsgs = new LinkedList<String>();
-
+		
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			String str = req.getParameter("ad_no");
-
-			String ad_no = null;
-			ad_no = new String(str);
-			/*************************** 2.開始查詢資料 *****************************************/
-			AdService adSvc = new AdService();
-			AdVO adVO = adSvc.getOneAd(ad_no);
-
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("adVO", adVO);
-			String url = "/front-end/front/front_ad_one.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-
+				String str = req.getParameter("ad_no");
+			
+				String ad_no = null;
+				ad_no = new String(str);
+				/*************************** 2.開始查詢資料 *****************************************/
+				AdService adSvc = new AdService();
+				AdVO adVO = adSvc.getOneAd(ad_no);
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("adVO", adVO);
+				String url = "/front-end/front/front_ad_one.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				
 		}
 	}
 }

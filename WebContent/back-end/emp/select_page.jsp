@@ -3,26 +3,33 @@
 
 <html>
 <head>
-<title>Emp: Home</title>
-
+<title>員工管理主頁</title>
+<script src="https://kit.fontawesome.com/d6c1e36c40.js" crossorigin="anonymous"></script>
 <style>
 	#loc{
-		position: absolute;
+ 		position: relative;
 		top: 150px;
-		left: 300px;
 		z-index: 10;
+		font-size: 150%;
 	}
+	#container{
+	  	margin:0 auto;
+	  	width: 600px;
+	}
+	
 </style>
 
 </head>
 <body>
 	
-	<div id="loc">
-	<table id="table-1">
-	   <tr><td><h3>Emp: Home</h3></td></tr>
-	</table>
-				  
-	<h3>資料查詢:</h3>
+<div class="wrapper">
+	
+	<div id="content">
+	
+	<div id="container">
+	<div id="loc"  style="margin-left:100px">
+	
+	<h3 style="margin-left:135px">員工管理主頁</h3>
 	
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -34,19 +41,19 @@
 		</ul>
 	</c:if>
 	
+	
+	<h5>資料查詢:</h5>
+	
 	<ul>
-	  <li><a href='listAllEmp.jsp'>List</a> all Emps.  <br><br></li>
-	  
-	  
 	  <li>
 	    <FORM METHOD="post" ACTION="emp.do" >
-	        <b>輸入員工編號 (如EMP0001):</b>
-	        <input type="text" name="emp_no">
+	        <b>輸入員工編號 :</b>
+	        <input type="text" name="emp_no" placeholder="EMP0001" size="6px">
 	        <input type="hidden" name="action" value="getOne_For_Display">
 	        <input type="submit" value="送出">
 	    </FORM>
 	  </li>
-	
+	  
 	  <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />
 	   
 	  <li>
@@ -76,12 +83,17 @@
 	  </li>
 	</ul>
 
-	<h3>員工管理</h3>
+	&emsp;&emsp;&ensp;<a class="btn btn-outline-secondary" href="listAllEmp.jsp" role="button"><i class="fas fa-file-alt" style="font-size:20px"></i>&ensp;所有員工列表</a>
+	<p><p>
 	
-	<ul>
-	  <li><a href='addEmp.jsp'>Add</a> a new Emp.</li>
-	</ul>
+	<h5>員工管理:</h5>
+	
+	  &emsp;&emsp;&ensp;<a class="btn btn-outline-secondary" href="addEmp.jsp" role="button"><i class="fas fa-user-plus" style="font-size:20px"></i>&ensp;新增員工</a>
+	  
 	</div>
+	</div>
+	</div>
+</div>
 	
 	<jsp:include page="/back-end/siderbar/siderbar.jsp" />
 

@@ -77,10 +77,8 @@
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="#">員工管理</a></li>
 						<li><a href="#">會員管理</a></li>
-						<li><a
-							href="<%=request.getContextPath()%>/back-end/ad/select_ad.jsp">廣告管理</a></li>
-						<li><a
-							href="<%=request.getContextPath()%>/back-end/news/select_news.jsp">最新消息管理</a></li>
+						<li><a href="<%=request.getContextPath()%>/back-end/ad/select_ad.jsp">廣告管理</a></li>
+						<li><a href="<%=request.getContextPath()%>/back-end/news/select_news.jsp">最新消息管理</a></li>
 						<li><a
 							href="<%=request.getContextPath()%>/back-end/inform_set/select_is.jsp">通知設定管理</a></li>
 						<li><a href="#">評價管理</a></li>
@@ -165,112 +163,95 @@
 					</div>
 				</div>
 			</nav>
+	
 
 
+		<h5 style="font-weight: 900; display: inline-block;">主管員工專區</h5>
+		<span> - 廣告管理</span> <a
+			href="<%=request.getContextPath()%>/back-end/ad/select_ad.jsp"
+			style="display: inline-block; font-size: 8px; font-weight: 900; color: #6d7fcc; text-decoration: none; margin-left: 20px;">返回首頁</a>
+		<p>
+		<table id="table-1">
+			<tr>
+				<td>
+					<h3 style="margin-bottom: 0;">廣告管理</h3>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 
-			<h5 style="font-weight: 900; display: inline-block;">主管員工專區</h5>
-			<span> - 廣告管理</span> <a
-				href="<%=request.getContextPath()%>/back-end/ad/select_ad.jsp"
-				style="display: inline-block; font-size: 8px; font-weight: 900; color: #6d7fcc; text-decoration: none; margin-left: 20px;">返回首頁</a>
-			<p>
-			<table id="table-1">
-				<tr>
-					<td>
-						<h3 style="margin-bottom: 0;">廣告管理</h3>
-					</td>
-				</tr>
-			</table>
-			<br>
-			<%-- 錯誤表列 --%>
-			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">請修正以下錯誤:</font>
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color: red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
+	name="form1" enctype="multipart/form-data">
 
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
-				name="form1" enctype="multipart/form-data">
+	<table>
 
-				<table>
-
-					<tr>
-						<td>廣告編號:<font color=red><b>*</b></font></td>
-						<td><%=adVO.getAd_no()%></td>
-					</tr>
-
-					<!-- 					----------------------------------------------- -->
+		<tr>
+			<td>廣告編號:<font color=red><b>*</b></font></td>
+			<td><%=adVO.getAd_no()%></td>
+		</tr>
+		
+			<!-- 					----------------------------------------------- -->
 
 					<%-- <jsp:useBean id="empSvc" scope="page" class="com.ad.model.EmpService" /> --%>
-					<%-- 					<c:forEach var="empVO" items="${empSvc.all}"> --%>
-					<%-- 						<c:if test="${empVO.emp_no==newsVO.emp_no}"> --%>
-					<%-- 					${empVO.emp_name} --%>
-					<%-- 					</c:if> --%>
-					<%-- 					</c:forEach> --%>
+<%-- 					<c:forEach var="empVO" items="${empSvc.all}"> --%>
+<%-- 						<c:if test="${empVO.emp_no==newsVO.emp_no}"> --%>
+<%-- 					${empVO.emp_name} --%>
+<%-- 					</c:if> --%>
+<%-- 					</c:forEach> --%>
 
 					<!-- 					-------------------------------------------- -->
+		
+		<tr>
+			<td>員工編號:</td>
+			<td><input type="TEXT" name="emp_no" size="45"
+				value="<%=adVO.getEmp_no()%>" /></td>
 
-					<tr>
-						<td>員工編號:</td>
-						<td><input type="TEXT" name="emp_no" size="45"
-							value="<%=adVO.getEmp_no()%>" /></td>
+		</tr>
+		<tr>
+			<td>廣告標題:</td>
+			<td><input type="TEXT" name="ad_title" size="45"
+				value="<%=adVO.getAd_title()%>" /></td>
+		</tr>
+		<tr>
+			<td>廣告內容:</td>
+			<td><input type="TEXT" name="ad_cont" size="45"
+				value="<%=adVO.getAd_cont()%>" /></td>
+		</tr>
+		<tr>
+			<td>廣告日期:</td>
+			<td><input name="ad_add_date" id="add_date" type="text"></td>
+		</tr>
+		<tr>
+			<td>結束日期:</td>
+			<td><input name="ad_re_date" id="re_date" type="text"></td>
+		</tr>
+		<tr>
+			<td>廣告圖片:</td>
+			<td><input name="ad_img" id="img" type="file"></td>
+		</tr>
+	</table>
+	<br> <input type="hidden" name="action" value="update"> <input
+		type="hidden" name="ad_no" value="<%=adVO.getAd_no()%>"> <input
+		type="submit" value="送出修改">
+</FORM>
+</body>
 
-					</tr>
-					<tr>
-						<td>廣告標題:</td>
-						<td><input type="TEXT" name="ad_title" size="45"
-							value="<%=adVO.getAd_title()%>" /></td>
-					</tr>
-					<tr>
-						<td>廣告內容:</td>
-						<td><input type="TEXT" name="ad_cont" size="45"
-							value="<%=adVO.getAd_cont()%>" /></td>
-					</tr>
-					<tr>
-						<td>廣告日期:</td>
-						<td><input name="ad_add_date" id="add_date" type="text"></td>
-					</tr>
-					<tr>
-						<td>結束日期:</td>
-						<td><input name="ad_re_date" id="re_date" type="text"></td>
-					</tr>
-					<!-- 					<tr> -->
-					<!-- 						<td>廣告狀態:</td> -->
-					<!-- 						<td><input type="TEXT" name="ad_sts" size="45" -->
-					<%-- 							value="<%=adVO.getAd_sts()%>" /></td> --%>
-					<!-- 					</tr> -->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
-					<tr>
-						<td>text:</td>
-						<td><input type="radio" name="ad_sts" size="45" value="1"
-							<%=adVO.getAd_sts() == 1 ? "checked" : ""%> />1 
-							<input type="radio"name="ad_sts" size="45" value="2"
-							<%=adVO.getAd_sts() == 2 ? "checked" : ""%> />2 
-							<input type="radio"name="ad_sts" size="45" value="0"
-							<%=adVO.getAd_sts() == 0 ? "checked" : ""%> />0</td>
-					</tr>
-
-					<tr>
-						<td>廣告圖片:</td>
-						<td><input name="ad_img" id="img" type="file"></td>
-					</tr>
-
-				</table>
-				<br> <input type="hidden" name="action" value="update">
-				<input type="hidden" name="ad_no" value="<%=adVO.getAd_no()%>">
-				<input type="submit" value="送出修改">
-			</FORM>
-
-
-			<link rel="stylesheet" type="text/css"
-				href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-			<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-			<script
-				src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-
-			<style>
+<style>
 .xdsoft_datetimepicker .xdsoft_datepicker {
 	width: 300px; /* width:  300px; */
 }
@@ -279,7 +260,7 @@
 	height: 151px; /* height:  151px; */
 }
 </style>
-			<script>
+<script>
         $.datetimepicker.setLocale('zh');
         $('#add_date').datetimepicker({
            theme: '',              //theme: 'dark',
@@ -294,7 +275,7 @@
         });
 
         </script>
-			<script>
+<script>
         $.datetimepicker.setLocale('zh');
         $('#re_date').datetimepicker({
            theme: '',              //theme: 'dark',
@@ -302,49 +283,43 @@
  	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
  		   value: '<%=adVO.getAd_re_date()%>', // value:   new Date(),
-				//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-				//startDate:	            '2017/07/10',  // 起始日
-				//minDate:               '-1970-01-01', // 去除今日(不含)之前
-				//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-				});
-			</script>
-			<!-- jQuery CDN - Slim version (=without AJAX) -->
-			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-				integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-				crossorigin="anonymous"></script>
-			<!-- Popper.JS -->
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-				integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-				crossorigin="anonymous"></script>
-			<!-- Bootstrap JS -->
-			<script
-				src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-				integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-				crossorigin="anonymous"></script>
-			<!-- jQuery Custom Scroller CDN -->
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+	//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+	//startDate:	            '2017/07/10',  // 起始日
+	//minDate:               '-1970-01-01', // 去除今日(不含)之前
+	//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+	});
+</script>
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<!-- Popper.JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+		integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+		integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+		crossorigin="anonymous"></script>
+	<!-- jQuery Custom Scroller CDN -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-			<script type="text/javascript">
-				$(document).ready(
-						function() {
-							$("#sidebar").mCustomScrollbar({
-								theme : "minimal"
-							});
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#sidebar").mCustomScrollbar({
+				theme : "minimal"
+			});
 
-							$('#sidebarCollapse').on(
-									'click',
-									function() {
-										$('#sidebar, #content').toggleClass(
-												'active');
-										$('.collapse.in').toggleClass('in');
-										$('a[aria-expanded=true]').attr(
-												'aria-expanded', 'false');
-									});
-						});
-			</script>
-</body>
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar, #content').toggleClass('active');
+				$('.collapse.in').toggleClass('in');
+				$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+			});
+		});
+	</script>
 </html>
 
 

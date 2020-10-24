@@ -9,8 +9,12 @@
 	right: 5%;
 }
 
+#addClass{
+	cursor: pointer;
+}
+
 .chat_box_wrapper.chat_box_small.chat_box_active {
-	height: 342px;
+	height: 346px;
 	overflow-y: scroll;
 	width: 316px;
 }
@@ -24,7 +28,7 @@ aside {
 	background-origin: padding-box;
 	background-position: center top;
 	background-repeat: repeat;
-	border: 1px solid #304445;
+	border: 0px;
 	bottom: 0;
 	display: none;
 	height: 466px;
@@ -49,10 +53,9 @@ aside {
 
 .popup-head {
 	background: #304445 none repeat scroll 0 0 !important;
-	border-bottom: 3px solid #ccc;
 	color: #fff;
 	display: table;
-	width: 100%;
+	width: 105.5%;
 	padding: 8px;
 }
 
@@ -61,7 +64,7 @@ aside {
 	border: 1px solid #fff;
 	border-radius: 7px;
 	font-size: 15px;
-	height: 26px;
+	height: 28px;
 	opacity: 0.9;
 	padding: 0;
 	text-align: center;
@@ -69,7 +72,7 @@ aside {
 }
 
 .popup-head-right {
-	margin: 9px 0 0;
+	margin: 4px 0 4px 0;
 }
 
 .chat_box .chat_message_wrapper .chat_user_avatar {
@@ -197,6 +200,29 @@ img {
 	vertical-align: middle;
 }
 
+#custSvc {
+	width: 128px;
+	display: inline-block;
+	position: fixed;
+	top: 73%;
+	right: 5%;
+}
+
+#chatClose {
+	margin-bottom: 5px;
+	width: 16px;
+}
+
+#sendMsg {
+	margin-left: 15px;
+	margin-top: 10px;
+	width: 24px;
+}
+
+#sidebar_secondary {
+	z-index: 300;
+}
+
 .chat_box .chat_message_wrapper ul.chat_message>li+li {
 	margin-top: 4px;
 }
@@ -238,7 +264,8 @@ img {
 	overflow: hidden;
 	padding: 10px;
 	position: absolute;
-	width: 100%;
+	width: 105.5%;
+	background: #e3e3e3;
 }
 
 .gurdeep-chat-box {
@@ -246,7 +273,7 @@ img {
 	border-radius: 5px;
 	float: left;
 	padding: 3px;
-	width: 230px;
+	width: 250px;
 }
 
 .uk-input-group-addon .glyphicon {
@@ -275,7 +302,11 @@ img {
 	background: transparent none repeat scroll 0 0;
 	border: 0px;
 	padding: 4px;
-	width: 220px;
+	width: 240px;
+}
+#submit_message:focus{
+	outline: none !important;
+    border:0px solid transparent;
 }
 
 /* 以下為小鈴鐺的 CSS  */
@@ -305,4 +336,13 @@ th, td {
 
 #fi_cont {
 	color: #000;
+}
+
+.modal-open .top,
+.modal-open .msg{
+	padding-right: 17px;
+}
+
+.modal-open #custSvc{
+	margin-right:16px;
 }

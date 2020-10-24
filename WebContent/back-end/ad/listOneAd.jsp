@@ -197,7 +197,6 @@ img {
 					<th>起始日期</th>
 					<th>結束日期</th>
 					<th>廣告圖片</th>
-					<th style="text-align:center">廣告狀態</th>
 				</tr>
 				<tr>
 					<td style="width: 100px;">${adVO.ad_no}</td>
@@ -208,7 +207,6 @@ img {
 					<td style="width: 100px;">${adVO.ad_re_date}</td>
 					<td><img
 						src="<%=request.getContextPath() %>/ad/ad.do?add_no=${adVO.ad_no}"></td>
-					<td style="width: 100px;" align="center">${adVO.ad_sts}</td>
 				</tr>
 			</table>
 </body>
