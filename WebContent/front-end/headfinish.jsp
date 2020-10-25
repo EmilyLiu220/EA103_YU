@@ -360,6 +360,7 @@
 						var dayTime = timestamp.substring(0,10);
 						p.setAttribute("title",dayTime);
 						var shortTime = timestamp.substring(11,18);
+						shortTime = shortTime.replace(/:$/, '');
 						span.innerHTML = shortTime;
 						// 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
 						if( historyData.sender === mem_no ){
@@ -406,6 +407,7 @@
 					var dayTime = timestamp.substring(0,10);
 					p.setAttribute("title",dayTime);
 					var shortTime = timestamp.substring(11,18);
+					shortTime = shortTime.replace(/:$/, '');
 					span.innerHTML = shortTime;
 					// 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
 					if( jsonObj.sender === mem_no ){

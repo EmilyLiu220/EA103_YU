@@ -1,6 +1,7 @@
 package com.message_record.model;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +16,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 								// 發給指定的連線
 @ServerEndpoint("/Message_RecordWS/{userName}")
@@ -39,7 +41,18 @@ public class Message_RecordWS {
 //				session.getAsyncRemote().sendText(stateMessageJson); // 把動作、使用者、其他線上使用者的資訊都推到前端去
 //			}
 //		}
-//
+		if("emp".equals(userName)) {
+			Set<String> keys = Message_RecordDAO.getKeys(); // 列出所有的key
+			Set<String> mems = new HashSet<String>();
+			for(String key : keys) {
+				String mem = key.substring(4);
+				mems.add(mem);
+			}
+			State stateMessage = new State("open", userName, mems);
+			String stateMessageJson = gson.toJson(stateMessage);
+			userSession.getAsyncRemote().sendText(stateMessageJson); 
+		}
+		
 		String text = String.format("Session ID = %s, connected; userName = %s%n", userSession.getId(), userName);
 		System.out.println(text);
 	}

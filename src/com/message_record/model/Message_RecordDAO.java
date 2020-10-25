@@ -1,6 +1,7 @@
 package com.message_record.model;
 
 import java.util.List;
+import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -47,5 +48,15 @@ public class Message_RecordDAO {
 			jedis.lset(key, i, data);
 		}
 		jedis.close();
+	}
+
+
+	public static Set<String> getKeys() {
+		Jedis jedis = null;
+		jedis = pool.getResource();
+		jedis.auth("123456");
+		Set<String> allKey = jedis.keys("emp*");
+		jedis.close();
+		return allKey;
 	}
 }
