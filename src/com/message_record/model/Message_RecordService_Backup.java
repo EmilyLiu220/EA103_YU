@@ -2,19 +2,19 @@ package com.message_record.model;
 
 import java.util.List;
 
-public class Message_RecordService {
+public class Message_RecordService_Backup {
 	
 	private Message_RecordDAO_interface dao;
 
-	public Message_RecordService() {
-		dao = new Message_RecordDAO();
+	public Message_RecordService_Backup() {
+		dao = new Message_RecordDAO_Backup();
 	}
 	
-	public Message_RecordVO addMsg(String msg_no, String emp_no, String mem_no, String msg_cont, java.sql.Date msg_time, Integer msg_sts, Integer read_sts ) {
+	public Message_RecordVO addMsg(String type, String emp_no, String mem_no, String msg_cont, String msg_time, Integer msg_sts, Integer read_sts ) {
 		
-		Message_RecordVO message_recordVO = new Message_RecordVO();
+		Message_RecordVO message_recordVO = new Message_RecordVO(type, mem_no, emp_no, msg_cont, msg_time, msg_sts, read_sts);
 		
-		message_recordVO.setMsg_no(msg_no);
+		message_recordVO.setType(type);
 		message_recordVO.setEmp_no(emp_no);
 		message_recordVO.setMem_no(mem_no);
 		message_recordVO.setMsg_cont(msg_cont);

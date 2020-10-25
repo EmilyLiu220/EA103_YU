@@ -17,7 +17,7 @@ import com.front_inform.model.Front_InformService;
 import com.front_inform.model.Front_InformVO;
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
-import com.message_record.model.Message_RecordService;
+import com.message_record.model.Message_RecordService_Backup;
 import com.message_record.model.Message_RecordVO;
 
 public class Message_RecordServlet extends HttpServlet {
@@ -53,7 +53,7 @@ public class Message_RecordServlet extends HttpServlet {
 				}
 				
 				/*************************** 2. 開始查詢資料 *****************************************/
-				Message_RecordService msgSvc = new Message_RecordService();
+				Message_RecordService_Backup msgSvc = new Message_RecordService_Backup();
 				List<Message_RecordVO> msgVOs = msgSvc.getMsgByMem(mem_no);
 
 				if(msgVOs.isEmpty()) {
@@ -103,7 +103,7 @@ public class Message_RecordServlet extends HttpServlet {
 				}
 				
 				/*************************** 2. 開始查詢資料 *****************************************/
-				Message_RecordService msgSvc = new Message_RecordService();
+				Message_RecordService_Backup msgSvc = new Message_RecordService_Backup();
 				List<Message_RecordVO> msgVOs = msgSvc.getMsgByEmp(emp_no);
 
 				if(msgVOs.isEmpty()) {
